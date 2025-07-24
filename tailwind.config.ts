@@ -61,12 +61,21 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				unity: {
+					orange: '#FF6B35',
+					blue: '#4A90E2',
+					dark: '#2D3748',
+					gray: '#4A5568'
 				}
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
 				md: 'calc(var(--radius) - 2px)',
 				sm: 'calc(var(--radius) - 4px)'
+			},
+			fontFamily: {
+				roboto: ['Roboto', 'sans-serif']
 			},
 			keyframes: {
 				'accordion-down': {
