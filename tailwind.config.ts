@@ -97,7 +97,21 @@ export default {
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'float': 'float 6s ease-in-out infinite',
+				'slide-up': 'slide-up 8s linear infinite'
+			},
+			keyframes: {
+				'float': {
+					'0%, 100%': { transform: 'translateY(0px)' },
+					'50%': { transform: 'translateY(-20px)' }
+				},
+				'slide-up': {
+					'0%': { transform: 'translateY(100vh)', opacity: '0' },
+					'10%': { opacity: '0.3' },
+					'90%': { opacity: '0.3' },
+					'100%': { transform: 'translateY(-100vh)', opacity: '0' }
+				}
 			}
 		}
 	},

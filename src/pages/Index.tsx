@@ -2,8 +2,34 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Icon from "@/components/ui/icon";
+import { useEffect, useState } from "react";
 
 const Index = () => {
+  const [codeBlocks, setCodeBlocks] = useState<{ id: number; x: number; y: number; code: string; delay: number }[]>([]);
+
+  const codeSnippets = [
+    "public class Player : MonoBehaviour",
+    "void Start() { Debug.Log(\"Game Started\"); }",
+    "transform.Translate(Vector3.forward * speed);",
+    "if (Input.GetKeyDown(KeyCode.Space))",
+    "Rigidbody rb = GetComponent<Rigidbody>();",
+    "void OnTriggerEnter(Collider other)",
+    "GameObject.Instantiate(bulletPrefab);",
+    "animator.SetBool(\"isRunning\", true);",
+    "Camera.main.transform.LookAt(target);",
+    "AudioSource.PlayClipAtPoint(sound, pos);"
+  ];
+
+  useEffect(() => {
+    const blocks = Array.from({ length: 15 }, (_, i) => ({
+      id: i,
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      code: codeSnippets[Math.floor(Math.random() * codeSnippets.length)],
+      delay: Math.random() * 20
+    }));
+    setCodeBlocks(blocks);
+  }, []);
   const courses = [
     {
       id: 1,
@@ -38,9 +64,26 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-unity-dark via-gray-900 to-unity-dark font-roboto">
+    <div className="min-h-screen bg-gradient-to-br from-unity-dark via-gray-900 to-unity-dark font-roboto relative overflow-hidden">
+      {/* Floating Code Blocks */}
+      <div className="fixed inset-0 pointer-events-none z-0">
+        {codeBlocks.map((block) => (
+          <div
+            key={block.id}
+            className="absolute text-unity-orange/30 font-mono text-sm animate-slide-up opacity-40 whitespace-nowrap"
+            style={{
+              left: `${block.x}%`,
+              top: `${block.y}%`,
+              animationDelay: `${block.delay}s`,
+              animationDuration: '12s'
+            }}
+          >
+            {block.code}
+          </div>
+        ))}
+      </div>
       {/* Header */}
-      <header className="border-b border-unity-gray/20 bg-unity-dark/95 backdrop-blur-sm sticky top-0 z-50">
+      <header className="border-b border-unity-gray/20 bg-unity-dark/95 backdrop-blur-sm sticky top-0 z-50 relative">
         <div className="container mx-auto px-4 py-4">
           <nav className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
@@ -64,7 +107,7 @@ const Index = () => {
       </header>
 
       {/* Hero Section */}
-      <section className="py-20 px-4">
+      <section className="py-20 px-4 relative z-10">
         <div className="container mx-auto text-center">
           <div className="max-w-4xl mx-auto">
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
@@ -110,7 +153,7 @@ const Index = () => {
       </section>
 
       {/* Courses Section */}
-      <section id="courses" className="py-20 px-4 bg-gray-900/50">
+      <section id="courses" className="py-20 px-4 bg-gray-900/50 relative z-10">
         <div className="container mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-white mb-4">Популярные курсы</h2>
